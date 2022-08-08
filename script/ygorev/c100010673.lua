@@ -13,7 +13,7 @@ function s.initial_effect(c)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	local at=Duel.GetAttacker()
-	return at:IsFaceup() and at:IsType(TYPE_EFFECT) and at:IsAttackBelow(2000) 
+	return at:IsFaceup() and at:IsControler(1-tp) and at:IsType(TYPE_EFFECT) and at:IsAttackBelow(2000) 
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local at=Duel.GetAttacker()
