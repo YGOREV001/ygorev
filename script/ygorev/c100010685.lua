@@ -18,8 +18,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function s.filter(c,tp,ep)
-	return c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:GetAttack()>=1000
-		and c:GetSummonPlayer()~=tp
+	return c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:GetAttack()>=1000 and c:IsType(TYPE_NORMAL) and c:GetSummonPlayer()~=tp
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if not eg then return false end

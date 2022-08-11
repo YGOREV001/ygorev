@@ -58,7 +58,7 @@ end
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetLabel()==0 then return end
 	local tc=eg:GetFirst()
-	if tc:IsCode(e:GetLabel()) and tc:IsSummonPlayer(tp) and tc:GetPreviousLocation()==LOCATION_EXTRA then
+	if tc:IsCode(e:GetLabel()) and tc:IsSummonPlayer(tp) and (tc:GetSummonType()&SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION then
 		e:SetLabel(0)
 	end
 end

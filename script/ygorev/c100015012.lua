@@ -1,4 +1,5 @@
 --Dark Rabbit
+local YGOREV_CARD_TOONALLIGATOR = 100015032 --Fix to include "Toon Alligator" as a searchable Toon
 local YGOREV_CARD_TOONWORLD = 100015066
 local s,id=GetID()
 function s.initial_effect(c)
@@ -22,6 +23,13 @@ function s.initial_effect(c)
 	e2:SetTarget(s.thtg2)
 	e2:SetOperation(s.thop2)
 	c:RegisterEffect(e2)
+	--This card is always treated as a Toon monster
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetCode(EFFECT_ADD_TYPE)	
+	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e3:SetValue(TYPE_TOON)
+	c:RegisterEffect(e3)
 end
 s.listed_names={YGOREV_CARD_TOONWORLD}
 
@@ -53,11 +61,11 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 end
 --Add 1 Toon monster from your Deck to your hand, except "Dark Rabbit"
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
+	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function s.filter(c)
-	return c:IsType(TYPE_TOON) and c:IsAbleToHand() and not c:IsCode(id)
+	return (c:IsType(TYPE_TOON) or c:IsCode(YGOREV_CARD_TOONALLIGATOR)) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.thop2(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)

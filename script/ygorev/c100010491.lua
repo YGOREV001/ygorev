@@ -102,14 +102,10 @@ end
 --Card Effects--START
 ----While another Pyro or FIRE monster is on the field, Pyro monsters you control gain 500 ATK/DEF
 function s.atkfilter(c,e,tp)
-	return c:IsRace(RACE_PYRO) or c:IsAttribute(ATTRIBUTE_FIRE)
+	return (c:IsRace(RACE_PYRO) or c:IsAttribute(ATTRIBUTE_FIRE)) and c:IsFaceup()
 end
 function s.atkcon(e)
 	return Duel.IsExistingMatchingCard(s.atkfilter,0,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler())
-end
---While another LIGHT monster is on the field, Negate the effects of all face-up monsters while they are face-up on the field, except for DARK and LIGHT monsters
-function s.discon(e)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsAttribute,ATTRIBUTE_LIGHT),0,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler())
 end
 --Negate the effects of all face-up monsters while they are face-up on the field, except Pyro and FIRE monsters.
 function s.distg(e,c)

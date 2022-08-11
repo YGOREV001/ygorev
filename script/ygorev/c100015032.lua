@@ -22,6 +22,13 @@ function s.initial_effect(c)
 	e2:SetTarget(s.thtg)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
+	--This card is always treated as a Toon monster
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetCode(EFFECT_ADD_TYPE)
+	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e3:SetValue(TYPE_TOON)
+	c:RegisterEffect(e3)
 end
 s.listed_names={YGOREV_CARD_TOONWORLD}
 
