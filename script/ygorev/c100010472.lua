@@ -132,35 +132,34 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 end
 
 --Special Summon 2 Level 6 or lower monsters from your Graveyard in Defense Position (min. 1 Fish monster)
-function s.spfilter1(c,e,tp)
+function s.speffilter1(c,e,tp)
 	return c:IsLevelBelow(6) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
-		and Duel.IsExistingMatchingCard(s.spfilter2,tp,LOCATION_GRAVE,0,1,c,e,tp,c:GetCode())
 end
-function s.spfilter2(c,e,tp,code)
+function s.speffilter2(c,e,tp,code)
 	return c:IsLevelBelow(6) and c:IsRace(RACE_FISH) and c:GetCode()~=code
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
-function s.spfilter3(c,e,tp,code)
+function s.speffilter3(c,e,tp,code)
 	return c:IsLevelBelow(6) and c:GetCode()~=code
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>1
-		and Duel.IsExistingMatchingCard(s.spfilter1,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
+		and Duel.IsExistingMatchingCard(s.speffilter1,tp,LOCATION_GRAVE,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,2,tp,LOCATION_GRAVE)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<2 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g1=Duel.SelectMatchingCard(tp,s.spfilter1,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
+	local g1=Duel.SelectMatchingCard(tp,s.speffilter1,tp,LOCATION_GRAVE,0,1,1,nil,e,tp)
 	if #g1>0 then
 		local tc=g1:GetFirst()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		if tc:IsRace(RACE_FISH) then
-			local g2=Duel.SelectMatchingCard(tp,s.spfilter3,tp,LOCATION_GRAVE,0,1,1,tc,e,tp,tc:GetCode())
+			local g2=Duel.SelectMatchingCard(tp,s.speffilter3,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,tc:GetCode())
 			g1:Merge(g2)
 		else
-			local g2=Duel.SelectMatchingCard(tp,s.spfilter2,tp,LOCATION_GRAVE,0,1,1,tc,e,tp,tc:GetCode())
+			local g2=Duel.SelectMatchingCard(tp,s.speffilter2,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,tc:GetCode())
 			g1:Merge(g2)
 		end
 		Duel.SpecialSummon(g1,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
