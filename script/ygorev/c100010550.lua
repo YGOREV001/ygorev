@@ -6,15 +6,14 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
-	--Each turn, the first time a Fiend or Zombie monster you control would be destroyed by battle, it is not destroyed
+	--indes
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetCountLimit(1,id)
-	e2:SetValue(function(_,_,r) return r&REASON_BATTLE==REASON_BATTLE end)
-	e2:SetTarget(function(_,c) return c:IsRace(RACE_FIEND+RACE_ZOMBIE) end)
+	e2:SetTarget(s.indtg)
+	e2:SetValue(s.indct)
 	c:RegisterEffect(e2)
 	--atk/def gain
 	local e3=Effect.CreateEffect(c)
@@ -29,6 +28,15 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 
+--The first time each Fiend or Zombie monster you control would be destroyed by battle each turn, it is not destroyed
+function s.indtg(e,c)
+	return c:IsRace(RACE_FIEND+RACE_ZOMBIE)
+end
+function s.indct(e,re,r,rp)
+	if (r&REASON_BATTLE)~=0 then
+		return 1
+	else return 0 end
+end
 
 --You can send this face-up card to the Graveyard; this turn, Fiend and Zombie monsters you currently control gain 100 ATK/DEF for each monster in your Graveyard
 function s.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)

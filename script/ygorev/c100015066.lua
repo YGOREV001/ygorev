@@ -23,15 +23,14 @@ function s.initial_effect(c)
 	e3:SetCondition(s.rdcon)
 	e3:SetValue(aux.ChangeBattleDamage(1,HALF_DAMAGE))
 	c:RegisterEffect(e3)	
-	--Each turn, the first time a Toon monster would be destroyed by battle, it is not destroyed
+	--indes
 	local e4=Effect.CreateEffect(c)
 	e4:SetType(EFFECT_TYPE_FIELD)
 	e4:SetCode(EFFECT_INDESTRUCTABLE_COUNT)
 	e4:SetRange(LOCATION_SZONE)
 	e4:SetTargetRange(LOCATION_MZONE,0)
-	e4:SetCountLimit(1,id)
-	e4:SetValue(function(_,_,r) return r&REASON_BATTLE==REASON_BATTLE end)
-	e4:SetTarget(function(_,c) return c:IsType(TYPE_TOON) end)
+	e4:SetTarget(s.indtg)
+	e4:SetValue(s.indct)
 	c:RegisterEffect(e4)
 	--tograve
 	local e5=Effect.CreateEffect(c)
@@ -49,6 +48,15 @@ function s.initial_effect(c)
 	e6:SetCountLimit(1)
 	e6:SetOperation(s.mtop)
 	c:RegisterEffect(e6)
+end
+--The first time each Toon monster you control would be destroyed by battle each turn, it is not destroyed
+function s.indtg(e,c)
+	return c:IsType(TYPE_TOON)
+end
+function s.indct(e,re,r,rp)
+	if (r&REASON_BATTLE)~=0 then
+		return 1
+	else return 0 end
 end
 --Toon monsters you control can attack directly, but when it does so using this effect, any battle damage inflicted is halved
 function s.rdcon(e,tp,eg,ep,ev,re,r,rp)

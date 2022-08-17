@@ -18,9 +18,9 @@ function s.condition(e)
 end
 function s.value(e,c)
 	local p=e:GetHandler():GetControler()
-	if Duel.GetLP(p)<Duel.GetLP(1-p) and Duel.GetLP(1-p)-Duel.GetLP(p)<=2000 then
+	if Duel.GetLP(p)<Duel.GetLP(1-p) and Duel.GetLP(1-p)-Duel.GetLP(p)>=2000 then
 		return 1500
-	elseif Duel.GetLP(p)>Duel.GetLP(1-p) and Duel.GetLP(p)-Duel.GetLP(1-p)<=2000 then
+	elseif Duel.GetLP(p)>Duel.GetLP(1-p) and Duel.GetLP(p)-Duel.GetLP(1-p)>=2000 then
 		return -1500
 	end
 end
