@@ -20,4 +20,5 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local ag1=g2:Select(tp,1,1,nil)
 	Duel.SendtoHand(ag1,tp,REASON_EFFECT)
+	Duel.ShuffleHand(1-tp)
 end
