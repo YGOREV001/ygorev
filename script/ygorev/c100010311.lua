@@ -16,7 +16,7 @@ end
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local at=Duel.GetAttacker()
 	local tc=Duel.GetAttackTarget()
-	return at:IsRace(RACE_REPTILE) and at:IsControler(tp) and tc:IsFaceup() 
+	return at:IsRace(RACE_REPTILE) and at:IsControler(tp) and tc and tc:IsFaceup() 
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttackTarget()

@@ -42,7 +42,7 @@ end
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler():GetEquipTarget()
 	local bc=c:GetBattleTarget()
-	return Duel.GetAttacker()==c and bc and bc:IsControler(1-tp) and c:IsCode(YGOREV_CARD_HARPIELADY)
+	return Duel.GetAttacker()==c and bc and bc:IsControler(1-tp) and bc:IsFaceup() and bc:IsLevelBelow(6) and c:IsCode(YGOREV_CARD_HARPIELADY)
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

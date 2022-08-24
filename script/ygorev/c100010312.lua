@@ -18,7 +18,9 @@ end
 
 --If the battle position of an opponent's monster is changed
 function s.cfilter(c,tp)
-	return c:IsControler(1-tp)
+	local np=c:GetPosition()
+	local pp=c:GetPreviousPosition()
+	return c:IsControler(1-tp) and not c:IsStatus(STATUS_CONTINUOUS_POS) and ((np<3 and pp>3) or (pp<3 and np>3))
 end
 function s.drcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)

@@ -17,7 +17,7 @@ function s.filter1(c,tp)
 end
 function s.filter2(c,fc)
 	if c:IsForbidden() or not c:IsAbleToHand() then return false end
-	return c:IsCode(table.unpack(fc.material)) and c:IsType(TYPE_NORMAL) and c:IsLevelBelow(4)
+	return c:IsOriginalCode(table.unpack(fc.material)) and c:IsType(TYPE_NORMAL) and c:IsLevelBelow(4)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter1,tp,LOCATION_EXTRA,0,1,nil,tp) end
@@ -40,7 +40,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 		e1:SetOperation(s.regop)
-		e1:SetLabel(rc:GetCode())
+		e1:SetLabel(rc:GetOriginalCode())
 		e1:SetReset(RESET_PHASE+PHASE_END)
 		Duel.RegisterEffect(e1,tp)
 		--During the End Phase, take 2000 damage if you did not Fusion Summon the revealed monster, or a monster with the same name, after this card was activated
@@ -58,7 +58,7 @@ end
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetLabel()==0 then return end
 	local tc=eg:GetFirst()
-	if tc:IsCode(e:GetLabel()) and tc:IsSummonPlayer(tp) and (tc:GetSummonType()&SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION then
+	if tc:IsOriginalCode(e:GetLabel()) and tc:IsSummonPlayer(tp) and (tc:GetSummonType()&SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION then
 		e:SetLabel(0)
 	end
 end
