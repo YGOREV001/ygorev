@@ -107,7 +107,7 @@ function s.defval(e,c)
 end
 --If a monster you control would be destroyed by battle, you can send 1 Rock monster from your Deck to your Graveyard instead
 function s.dfilter(c,tp)
-	return c:IsControler(tp) and c:IsReason(REASON_BATTLE)
+	return c:IsControler(tp) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 end
 function s.repfilter(c)
 	return c:IsRace(RACE_ROCK) and c:IsAbleToGrave()
@@ -118,7 +118,7 @@ function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	return Duel.SelectEffectYesNo(tp,e:GetHandler(),96)
 end
 function s.value(e,c)
-	return c:IsControler(e:GetHandlerPlayer()) and c:IsReason(REASON_BATTLE)
+	return c:IsControler(e:GetHandlerPlayer()) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 end
 function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)

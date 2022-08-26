@@ -40,8 +40,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject():GetFirst()
 	if e:GetHandler():IsRelateToEffect(e) and tc:IsLocation(LOCATION_MZONE) then
 		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)	
-		--Return the targeted monster to the hand
-		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 		--Change the battle position of the attacking monster
 		if at:IsRelateToBattle() then
 			Duel.ChangePosition(at,POS_FACEUP_DEFENSE,0,POS_FACEUP_ATTACK,0)

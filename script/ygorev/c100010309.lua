@@ -30,7 +30,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop)
 	c:RegisterEffect(e3)
 end
---If this card was Tribute Summoned by Tributing a Reptile monster, it cannot be targeted by your opponent's cards
+--While you control this Tribute Summoned card by Tributing a Reptile monster, Reptile monsters you control cannot be targeted by your opponent's cards
 function s.valcheck(e,c)
 	local g=c:GetMaterial()
 	local tc=g:GetFirst()
@@ -45,22 +45,26 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 --Cannot be targeted by your opponent's card effects
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
+	local c=e:GetHandler()	
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 	e1:SetRange(LOCATION_MZONE)
+	e1:SetTargetRange(LOCATION_MZONE,0)
+	e1:SetTarget(s.targetd)
 	e1:SetValue(aux.tgoval)
-	e1:SetReset(RESET_EVENT+RESETS_STANDARD)
 	c:RegisterEffect(e1)
 end
 
---If a Reptile monster changes its battle position: You can target 1 card on the field, except a Level 7 or higher monster; return it to the hand
+function s.targetd(e,c)
+	return c:IsRace(RACE_REPTILE)
+end
+--If a monster changes its battle position: You can target 1 card on the field, except a Level 7 or higher monster; return it to the hand
 function s.cfilter(c,tp)
 	local np=c:GetPosition()
 	local pp=c:GetPreviousPosition()
-	return c:IsRace(RACE_REPTILE) and not c:IsStatus(STATUS_CONTINUOUS_POS) and ((np<3 and pp>3) or (pp<3 and np>3))
+	return not c:IsStatus(STATUS_CONTINUOUS_POS) and ((np<3 and pp>3) or (pp<3 and np>3))
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)

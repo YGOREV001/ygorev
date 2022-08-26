@@ -130,13 +130,13 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummonComplete()
 	end
 end
---If a Trap is activated: You can discard 1 card; negate it. "Wasteland" must be on the field to activate and resolve this effect
+--If a Spell/Trap is activated: You can discard 1 card; negate it. "Wasteland" must be on the field to activate and resolve this effect
 function s.envfilter(c)
 	return c:IsFaceup() and c:IsCode(YGOREV_CARD_WASTELAND)
 end
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
-		and re:IsActiveType(TYPE_TRAP) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and Duel.IsChainNegatable(ev)
+		and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and Duel.IsChainNegatable(ev)
 		and (Duel.IsExistingMatchingCard(s.envfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_WASTELAND))
 end
 function s.discost(e,tp,eg,ep,ev,re,r,rp,chk)

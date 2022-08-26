@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	e1:SetCategory(CATEGORY_TOGRAVE)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_BATTLE_DAMAGE)
-	e1:SetCondition(s.condition)
+	e1:SetCondition(s.tgcon)
 	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.tgtg)
 	e1:SetOperation(s.tgop)
@@ -100,7 +100,7 @@ end
 
 --Card Effects--START
 --If this card inflicts battle damage to your opponent
-function s.condition(e,tp,eg,ep,ev,re,r,rp)
+function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
 --Send 1 Zombie or EARTH Normal Monster from your Deck to your Graveyard

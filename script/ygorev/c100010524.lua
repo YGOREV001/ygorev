@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_BATTLE_DAMAGE)
-	e1:SetCondition(s.condition)
+	e1:SetCondition(s.spcon)
 	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.sptg)
 	e1:SetOperation(s.spop)
@@ -100,7 +100,7 @@ end
 
 --Card Effects--START
 --If this card inflicts battle damage to your opponent
-function s.condition(e,tp,eg,ep,ev,re,r,rp)
+function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
 --You can target 1 Level 3 or lower Plant or Zombie Normal Monster in your Graveyard

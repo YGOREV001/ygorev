@@ -12,14 +12,15 @@ function s.initial_effect(c)
 	e1:SetTarget(s.sptg)
 	e1:SetOperation(s.spop)
 	c:RegisterEffect(e1)
-	--atk up	
+	--atk up		
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetCategory(CATEGORY_ATKCHANGE)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
+	e2:SetCode(EVENT_CHANGE_POS)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCode(EFFECT_UPDATE_ATTACK)
-	e2:SetCondition(s.econ)
-	e2:SetValue(s.value)
+	e2:SetOperation(s.atkop)
 	c:RegisterEffect(e2)
 end
 
@@ -41,13 +42,15 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
---While "Forest" is on the field, gains 300 ATK for each other Reptile or WATER monster on the field
-function s.econ(e)
-	return Duel.IsEnvironment(YGOREV_CARD_FOREST)
+--If a monster changes its battle position: All Reptile monsters you control gain 200 ATK/DEF
+function s.atkop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local g=Duel.GetMatchingGroup(s.atkfilter,tp,LOCATION_MZONE,0,nil)
+	for tc in aux.Next(g) do
+		tc:UpdateAttack(200,nil,c)
+		tc:UpdateDefense(200,nil,c)
+	end
 end
-function s.atkfilter(c,e,tp)
-	return (c:IsRace(RACE_REPTILE) or c:IsAttribute(ATTRIBUTE_WATER)) and c~=e:GetHandler()
-end
-function s.value(e,c)
-	return Duel.GetMatchingGroupCount(s.atkfilter,e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,nil,e)*300
+function s.atkfilter(c)
+	return c:IsRace(RACE_REPTILE) and c:IsFaceup()
 end

@@ -11,7 +11,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 
---Gains 200 ATK for every different Type among the monsters on the field and in the Graveyards
+--Gains 100 ATK for every different Type among the monsters on the field and in the Graveyards
 function s.value(e,c)
 	local tp=e:GetHandlerPlayer()
 	local att=0
@@ -25,5 +25,5 @@ function s.value(e,c)
 		if (att&0x1)~=0 then ct=ct+1 end
 		att=(att>>1)
 	end
-	return ct*200
+	return ct*100
 end

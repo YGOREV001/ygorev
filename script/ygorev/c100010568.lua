@@ -12,9 +12,9 @@ function s.initial_effect(c)
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(id,0))
 	e4:SetCategory(CATEGORY_TOHAND)
-	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e4:SetCode(EVENT_DESTROYED)
+	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e4:SetCode(EVENT_LEAVE_FIELD)
 	e4:SetCountLimit(1,id)
 	e4:SetCondition(s.thcon)
 	e4:SetCost(s.thcost)
@@ -24,8 +24,8 @@ function s.initial_effect(c)
 end
 --If this card on the field is destroyed: You can pay 500 LP; add this card to your hand.
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_ONFIELD)
+	local c=e:GetHandler()	
+	return c:IsLocation(LOCATION_GRAVE) and c:IsReason(REASON_DESTROY+REASON_RULE)
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,500) end

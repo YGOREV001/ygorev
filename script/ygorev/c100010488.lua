@@ -3,6 +3,7 @@ local s,id=GetID()
 local YGOREV_FUSION_MAT1=100010051
 local YGOREV_FUSION_MAT2=100010285
 local YGOREV_NUMOFDIFFMATS=2
+local YGOREV_CARD_FOREST = 100010587
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Fusion.AddProcMix(c,true,true,YGOREV_FUSION_MAT1,YGOREV_FUSION_MAT2)	
@@ -100,13 +101,13 @@ end
 --Card Effects--START
 --"Forest" must be on the field to activate and resolve this effect
 function s.envfilter(c)
-	return c:IsFaceup() and c:IsCode(YGOREV_CARD_WASTELAND)
+	return c:IsFaceup() and c:IsCode(YGOREV_CARD_FOREST)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.envfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_FOREST)
 end
 
---You can target 1 Level 4 or lower Normal Plant monster from your Graveyard; Special Summon it
+--You can target 1 Level 4 or lower Plant Normal Monster from your Graveyard; Special Summon it
 function s.filter(c,e,tp)
 	return c:IsRace(RACE_PLANT) and c:IsLevelBelow(4) and c:IsType(TYPE_NORMAL) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end

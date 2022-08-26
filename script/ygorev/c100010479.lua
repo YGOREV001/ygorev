@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
 	e1:SetTarget(aux.TargetBoolFunction(Card.IsRace,RACE_INSECT))
-	e1:SetValue(s.efilter)
+	e1:SetValue(aux.tgoval)
 	c:RegisterEffect(e1)
 	--atk
 	local e2=Effect.CreateEffect(c)
@@ -100,18 +100,18 @@ end
 --Min 1 material face-up on the field (YGOREV Generic Fusion Restriction)--END
 
 --Card Effects--START
---Insect monsters you control cannot be targeted by monster effects, except by Insect monsters
+--Insect monsters you control cannot be targeted by your opponent's cards or effects
 function s.efilter(e,re,rp)
 	return re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsRace(RACE_INSECT) 
 end
 
---You can target 1 Insect Normal Monster you control; gains ATK equal to the Level difference between that target and this card x400 
+--You can target 1 other Insect monster you control; gains ATK equal to the Level difference between that target and this card x400 
 function s.atkfilter(c,lv)
-	return c:IsFaceup() and c:IsRace(RACE_INSECT) and c:IsType(TYPE_NORMAL) and c:GetLevel()~=lv
+	return c:IsFaceup() and c:IsRace(RACE_INSECT) and c:GetLevel()~=lv
 end
 function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsFaceup() end
-	if chk==0 then return Duel.IsExistingTarget(s.atkfilter,tp,LOCATION_MZONE,0,1,nil,e:GetHandler():GetLevel()) end
+	if chk==0 then return Duel.IsExistingTarget(s.atkfilter,tp,LOCATION_MZONE,0,1,e:GetHandler(),e:GetHandler():GetLevel()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	Duel.SelectTarget(tp,s.atkfilter,tp,LOCATION_MZONE,0,1,1,nil,e:GetHandler():GetLevel())
 end

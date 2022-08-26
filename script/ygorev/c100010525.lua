@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_BATTLE_DAMAGE)
-	e1:SetCondition(s.condition)
+	e1:SetCondition(s.thcon)
 	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.thtg)
 	e1:SetOperation(s.thop)
@@ -100,7 +100,7 @@ end
 
 --Card Effects--START
 --If this card inflicts battle damage to your opponent
-function s.condition(e,tp,eg,ep,ev,re,r,rp)
+function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
 --You can target 1 Level 3 or lower Normal Monster in your Graveyard

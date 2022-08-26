@@ -21,7 +21,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if #g>0 then
 		Duel.ConfirmCards(1-tp,g,REASON_EFFECT+REASON_REVEAL)	
 		Duel.ShuffleHand(tp)
-		e:SetLabel(#g*500)		
+		e:SetLabel(#g*700)		
 	end	
 end
 --Inflict 500 damage to your opponent for each

@@ -40,12 +40,16 @@ function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
+	if re:GetHandler():IsRelateToEffect(re) and re:GetHandler():IsDestructable() then
+		Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,1,0,0)
+	end
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject():GetFirst()
 	if e:GetHandler():IsRelateToEffect(e) and tc:IsLocation(LOCATION_MZONE) then
 		Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP)	
-		--Return the targeted monster to the hand
-		Duel.SendtoHand(tc,nil,REASON_EFFECT)
+		--Negate the effect
+		Duel.NegateActivation(ev)
 	end
 end
