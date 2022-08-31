@@ -94,10 +94,10 @@ end
 --Card Effects--START
 
 --If an EARTH monster changes its battle position 
-function s.cfilter(c,tp)
+function s.cfilter(c,tp)	
 	local np=c:GetPosition()
 	local pp=c:GetPreviousPosition()
-	return c:IsAttribute(ATTRIBUTE_EARTH) and ((pp==0x1 and np==0x4) or (pp==0x4 and np==0x1))
+	return not c:IsStatus(STATUS_CONTINUOUS_POS) and ((np<3 and pp>3) or (pp<3 and np>3)) and c:IsAttribute(ATTRIBUTE_EARTH)
 end
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)
