@@ -93,8 +93,8 @@ end
 --Min 1 material face-up on the field (YGOREV Generic Fusion Restriction)--END
 
 --Card Effects--START
---Gains 200 ATK for each monster your opponent controls
+--Gains 200 ATK for each card your opponent controls
 function s.val(e,c)
-	return Duel.GetFieldGroupCount(c:GetControler(),0,LOCATION_MZONE)*200
+	return Duel.GetFieldGroupCount(c:GetControler(),0,LOCATION_ONFIELD)*200
 end
 --Card Effects--END

@@ -17,6 +17,17 @@ function s.initial_effect(c)
 	e0:SetTarget(s.target)
 	e0:SetOperation(s.operation)
 	c:RegisterEffect(e0)
+	--Attack twice
+	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(id,1))
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetCountLimit(1,id)
+	e1:SetCondition(s.atcon)
+	e1:SetCost(s.atcost)
+	e1:SetOperation(s.atop)
+	c:RegisterEffect(e1)
 end
 
 --Min 1 material face-up on the field (YGOREV Generic Fusion Restriction)--START
@@ -78,3 +89,41 @@ function s.splimit0(e,c,sump,sumtype,sumpos,targetp,se)
 	return (sumtype&SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
 end
 --Min 1 material face-up on the field (YGOREV Generic Fusion Restriction)--END
+--Card Effects--START
+--Reveal 1 Thunder monster from your hand, until the End Phase
+function s.cfilter(c)
+	return c:IsRace(RACE_THUNDER) and not c:IsPublic()
+end
+function s.atcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsAbleToEnterBP() and e:GetHandler():CanAttack() and not e:GetHandler():IsHasEffect(EFFECT_EXTRA_ATTACK)
+end
+function s.atcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
+	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_HAND,0,1,1,nil)
+	if #g>0 then
+		Duel.ConfirmCards(1-tp,g,REASON_EFFECT+REASON_REVEAL)
+		local g1=g:GetFirst()
+		local e1=Effect.CreateEffect(g1)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_PUBLIC)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		g1:RegisterEffect(e1)	
+		Duel.ShuffleHand(tp)	
+	end	
+end
+function s.atop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if c then
+		--Can make a second attack
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetDescription(3201)
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_EXTRA_ATTACK)
+		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
+		e1:SetValue(1)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+		c:RegisterEffect(e1)
+	end
+end
+--Card Effects--END

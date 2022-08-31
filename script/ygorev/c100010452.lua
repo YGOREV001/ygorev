@@ -22,14 +22,15 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_MATERIAL_CHECK)
 	e2:SetValue(s.valcheck)
 	c:RegisterEffect(e2)	
-	--atk/def up	
+	--destroy
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,1))
-	e3:SetCategory(CATEGORY_ATKCHANGE+CATEGORY_DEFCHANGE)
+	e3:SetDescription(aux.Stringid(id,0))
+	e3:SetCategory(CATEGORY_DESTROY)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e3:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
-	e3:SetCondition(s.upcon)
-	e3:SetOperation(s.upop)
+	e3:SetCode(EVENT_BATTLE_START)
+	e3:SetCountLimit(1,id)
+	e3:SetTarget(s.destg)
+	e3:SetOperation(s.desop)
 	c:RegisterEffect(e3)
 end
 
@@ -136,27 +137,18 @@ function s.drop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-
---If this card battles a DARK or EARTH monster, this card gains 1000 ATK/DEF during damage calculation only
-function s.upcon(e,tp,eg,ep,ev,re,r,rp)
+--At the start of the Damage Step, if this card battles a face-up DARK or EARTH monster: Destroy that monster
+function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	local bc=c:GetBattleTarget()
-	return bc and bc:IsAttribute(ATTRIBUTE_DARK+ATTRIBUTE_EARTH)
+	local tc=Duel.GetAttacker()
+	if tc==c then tc=Duel.GetAttackTarget() end
+	if chk==0 then return tc and tc:IsFaceup() and tc:IsAttribute(ATTRIBUTE_DARK+ATTRIBUTE_EARTH) end
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,1,0,0)
 end
-function s.upop(e,tp,eg,ep,ev,re,r,rp)
+function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and c:IsFaceup() then
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_UPDATE_ATTACK)
-		e1:SetReset(RESET_PHASE+PHASE_DAMAGE_CAL)
-		e1:SetValue(1000)
-		c:RegisterEffect(e1)
-		local e2=e1:Clone()
-		e2:SetCode(EFFECT_UPDATE_DEFENSE)
-		c:RegisterEffect(e2)
-	end
+	local tc=Duel.GetAttacker()
+	if tc==c then tc=Duel.GetAttackTarget() end
+	if tc:IsRelateToBattle() then Duel.Destroy(tc,REASON_EFFECT) end
 end
-
-
 --Card Effects--END

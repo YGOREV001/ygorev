@@ -103,9 +103,9 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsRelateToBattle() and bc:IsLocation(LOCATION_GRAVE) and bc:IsType(TYPE_MONSTER)
 end
 
---Add 1 Level 4 or lower Beast or WATER monster from your Deck to your hand
+--Add 1 Level 4 or lower Beast or Beast-Warrior monster from your Deck to your hand
 function s.filter(c)
-	return (c:IsRace(RACE_BEAST) or c:IsAttribute(ATTRIBUTE_WATER)) and c:IsLevelBelow(4) and c:IsAbleToHand()
+	return c:IsRace(RACE_BEAST+RACE_BEASTWARRIOR) and c:IsLevelBelow(4) and c:IsAbleToHand()
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
@@ -117,16 +117,16 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 --If this card would be destroyed by battle or by a card effect, you can discard 1 WATER monster from your hand instead
-function s.filter(c)
+function s.rfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_WATER)
 end
 function s.desreptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:IsReason(REASON_BATTLE+REASON_EFFECT) and not c:IsReason(REASON_REPLACE)
-		and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND,0,1,nil) end
+		and Duel.IsExistingMatchingCard(s.rfilter,tp,LOCATION_HAND,0,1,nil) end
 	if Duel.SelectEffectYesNo(tp,c,96) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DISCARD)
-		local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_HAND,0,1,1,nil)
+		local g=Duel.SelectMatchingCard(tp,s.rfilter,tp,LOCATION_HAND,0,1,1,nil)
 		Duel.SendtoGrave(g,REASON_EFFECT+REASON_REPLACE)
 		return true
 	else return false end
