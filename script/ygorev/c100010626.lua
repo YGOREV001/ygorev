@@ -6,7 +6,7 @@ function s.initial_effect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_HANDES+CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH+EFFECT_COUNT_CODE_DUEL)--OPD
+	e1:SetCost(s.cost)
 	e1:SetCondition(s.condition)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.activate)
@@ -18,6 +18,11 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.rmfilter(c,p)
 	return Duel.IsPlayerCanRemove(p,c) and not c:IsType(TYPE_TOKEN)
+end
+--Pay 3000 LP
+function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.CheckLPCost(tp,3000) end
+	Duel.PayLPCost(tp,3000)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	--Compare current cards qty on fields, hands and graves

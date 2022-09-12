@@ -18,7 +18,7 @@ function s.drcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_HAND) or e:GetHandler():IsPreviousLocation(LOCATION_DECK)
 end
 
---Gain 5000 LP
+--Gain 3000 LP
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Recover(tp,5000,REASON_EFFECT)
+	Duel.Recover(tp,3000,REASON_EFFECT)
 end

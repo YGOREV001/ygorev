@@ -16,22 +16,19 @@ end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return tp~=Duel.GetTurnPlayer()
 end
-function s.filter(c,atk)
-	return c:IsFaceup() and c:IsAttackPos() and c:GetAttack()<=atk
+function s.filter(c)
+	return c:IsAttackPos()
 end
+--Destroy all your opponent's Attack Position monsters
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	local ec=eg:GetFirst()
-	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,0,LOCATION_MZONE,1,nil,ec:GetAttack()) end
-	ec:CreateEffectRelation(e)
-	local g=Duel.GetMatchingGroup(s.filter,tp,0,LOCATION_MZONE,nil,ec:GetAttack())
+	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,0,LOCATION_MZONE,1,nil) end
+	local g=Duel.GetMatchingGroup(s.filter,tp,0,LOCATION_MZONE,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,#g,0,0)
 end
---Destroy all your opponent's Attack Position monsters whose ATK is lower or equal to the attacking monster's ATK
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
-	local ec=eg:GetFirst()
-	if not (ec and ec:IsRelateToEffect(e) and ec:IsFaceup()) then return end
-	local g=Duel.GetMatchingGroup(s.filter,tp,0,LOCATION_MZONE,nil,ec:GetAttack())
+	local g=Duel.GetMatchingGroup(s.filter,tp,0,LOCATION_MZONE,nil)
 	if #g>0 then
 		Duel.Destroy(g,REASON_EFFECT)
 	end
 end
+

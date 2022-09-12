@@ -36,7 +36,7 @@ function s.initial_effect(c)
 end
 --Activate this card by targeting 1 monster in your Graveyard
 function s.filter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_GRAVE and chkc:GetControler()==tp
@@ -63,6 +63,15 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetValue(RACE_ZOMBIE)
 		e1:SetCondition(s.rcon)
 		tc:RegisterEffect(e1)
+		--Negate its effects
+		local e2=Effect.CreateEffect(c)
+		e2:SetType(EFFECT_TYPE_SINGLE)
+		e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_OWNER_RELATE)
+		e2:SetRange(LOCATION_ONFIELD)
+		e2:SetCode(EFFECT_DISABLE)
+		e2:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e2:SetCondition(s.rcon)
+		tc:RegisterEffect(e2,true)
 		Duel.SpecialSummonComplete()
 	end
 end
