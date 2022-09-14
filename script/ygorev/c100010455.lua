@@ -30,7 +30,8 @@ function s.initial_effect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TODECK)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e2:SetCode(EVENT_DESTROYED)
+	e2:SetCode(EVENT_TO_GRAVE)
+	e2:SetCondition(s.spcon)
 	e2:SetTarget(s.sptg)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
@@ -97,8 +98,12 @@ end
 --Min 1 material face-up on the field (YGOREV Generic Fusion Restriction)--END
 
 --Card Effects--START
---If this card you control is destroyed: You can target 1 "Battle Ox" and 1 "Mystic Horseman" from your Graveyard: Special Summon 1 of those targets, then shuffle the other target into the Deck.
-
+--If this card you control is destroyed: You can target 1 "Battle Ox" and 1 "Mystic Horseman" from your Graveyard: Special Summon 1 of those targets, then shuffle the other target into the Deck
+function s.spcon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsReason(REASON_DESTROY)
+		and c:IsPreviousControler(tp) and c:IsLocation(LOCATION_GRAVE)
+end
 function s.ssfilter1(c,e,tp,code)
 	return c:IsCode(code) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end

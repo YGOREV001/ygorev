@@ -82,9 +82,10 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.NegateActivation(ev) then return end
 end
 --If this card you control is destroyed: You can Special Summon it in Defense Position during your next Standby Phase.
-function s.spcon(e,tp,eg,ep,ev,re,r,rp)
+function s.spcon(e,tp,eg,ep,ev,re,r,rp)	
 	local c=e:GetHandler()
-	return c:IsReason(REASON_DESTROY) and c:IsLocation(LOCATION_GRAVE)
+	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsReason(REASON_DESTROY)
+		and c:IsPreviousControler(tp) and c:IsLocation(LOCATION_GRAVE)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	e:GetHandler():RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD,0,0)
