@@ -15,7 +15,7 @@ end
 
 --Target 1 card on the field; If "Forest" is on the field, you can target 2 cards instead.
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)	
-	if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_FOREST),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+	if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_FOREST),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 		or Duel.IsEnvironment(YGOREV_CARD_FOREST)) then
 		if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsAbleToHand() end
 		if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToHand,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
@@ -33,7 +33,7 @@ end
 
 --Return to the hand. 
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
-	if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_FOREST),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+	if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_FOREST),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 		or Duel.IsEnvironment(YGOREV_CARD_FOREST)) then
 		local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 		local g=tg:Filter(Card.IsRelateToEffect,nil,e)

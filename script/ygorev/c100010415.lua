@@ -25,7 +25,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	e:SetLabel(0)
 	--Field validation
-	if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_MOUNTAIN),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+	if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_MOUNTAIN),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 		or Duel.IsEnvironment(YGOREV_CARD_MOUNTAIN)) then e:SetLabel(1) end
 	--At the end of the Battle Phase, if this card battled
 	return e:GetHandler():GetBattledGroupCount()>0

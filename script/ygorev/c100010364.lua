@@ -43,10 +43,10 @@ end
 
 --Discard 1 Spell, then target 1 card your opponent controls; return it to the hand. If "Yami" is on the field, you can discard any 1 card to activate this card's effect, instead
 function s.thcond1(e,tp,eg,ep,ev,re,r,rp)
-	return not (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_YAMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_YAMI))
+	return not (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_YAMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_YAMI))
 end
 function s.thcond2(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_YAMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_YAMI)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_YAMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_YAMI)
 end
 function s.costfilter1(c)
 	return c:IsType(TYPE_SPELL) and c:IsDiscardable()

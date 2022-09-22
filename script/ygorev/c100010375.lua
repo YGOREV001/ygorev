@@ -45,5 +45,5 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --Thunder monsters you control gain 100 ATK for each Thunder monster on the field
 function s.atkval(e,c)
-	return Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsRace,RACE_THUNDER),e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,nil)*100
+	return Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_THUNDER),e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,nil)*100
 end

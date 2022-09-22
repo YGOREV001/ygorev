@@ -124,9 +124,9 @@ function s.operation2(e,tp,eg,ep,ev,re,r,rp)
 	local ct=matsonfield
 	if c:IsRelateToEffect(e) then	
 		--1+: Destroy 1 Level 4 or lower monster on the field 
-		if ct>=1 and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsLevelBelow,4),tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then	
+		if ct>=1 and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsLevelBelow,4),tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then	
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)	
-			local g1=Duel.SelectMatchingCard(tp,aux.FilterFaceupFunction(Card.IsLevelBelow,4),tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
+			local g1=Duel.SelectMatchingCard(tp,aux.FaceupFilter(Card.IsLevelBelow,4),tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 			if #g1>0 then 
 				Duel.Destroy(g1,REASON_EFFECT) 
 			end			
@@ -140,8 +140,8 @@ function s.operation2(e,tp,eg,ep,ev,re,r,rp)
 		end
 		
 		--3: Special Summon 1 Level 4 or lower monster from your Graveyard, and if you do, it becomes Zombie
-		if ct>=3 and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsLevelBelow,4),tp,LOCATION_GRAVE,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(id,3)) then	
-			local sg=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsLevelBelow,4),tp,LOCATION_GRAVE,0,nil,e,tp)
+		if ct>=3 and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsLevelBelow,4),tp,LOCATION_GRAVE,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(id,3)) then	
+			local sg=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsLevelBelow,4),tp,LOCATION_GRAVE,0,nil,e,tp)
 			if #sg~=0 then
 				Duel.BreakEffect()
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)

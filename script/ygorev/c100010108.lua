@@ -25,7 +25,7 @@ function s.initial_effect(c)
 end
 
 function s.con1(e,tp,eg,ep,ev,re,r,r)
-	return (not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+	return (not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 		and not Duel.IsEnvironment(YGOREV_CARD_UMI)) and Duel.GetAttacker():IsControler(1-tp)	
 end
 
@@ -36,7 +36,7 @@ end
 
 --If "Umi" is on the field, you can pay 500 LP instead.
 function s.con2(e,tp,eg,ep,ev,re,r,r)
-	return (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+	return (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 		or Duel.IsEnvironment(YGOREV_CARD_UMI)) and Duel.GetAttacker():IsControler(1-tp)
 end
 

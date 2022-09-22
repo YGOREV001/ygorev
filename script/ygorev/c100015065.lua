@@ -81,5 +81,5 @@ function s.repval(e,c)
 	return c==e:GetLabelObject()
 end
 function s.descon(e)
-	return not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_TOONWORLD),e:GetHandlerPlayer(),LOCATION_ONFIELD,0,1,nil)
+	return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_TOONWORLD),e:GetHandlerPlayer(),LOCATION_ONFIELD,0,1,nil)
 end

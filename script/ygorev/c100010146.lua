@@ -1,4 +1,4 @@
---MEgazowler
+--Megazowler
 local s,id=GetID()
 function s.initial_effect(c)
 	--atk up
@@ -17,7 +17,7 @@ end
 
 --All Dinosaur monsters you control gain 200 ATK for each Dinosaur monster on the field
 function s.atkval(e,c)
-	return Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsRace,RACE_DINOSAUR),e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,nil)*200
+	return Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_DINOSAUR),e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,nil)*200
 end
 
 

@@ -33,10 +33,10 @@ function s.initial_effect(c)
 end
 
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.natcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetAttacker():IsControler(1-tp) and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil)
+	return Duel.GetAttacker():IsControler(1-tp) and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	--You can only use this effect up to 3 times this turn
@@ -75,7 +75,7 @@ end
 --Your opponent declares 2 numbers from 1 to 6, then, you roll a six-sided die, then, if the result is none of the numbers your opponent declared, negate the attack or effect
 --Attack
 function s.natop(e,tp,eg,ep,ev,re,r,rp)
-	if not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil) then return false end		
+	if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil) then return false end		
 	local t={}
 	local i=1
 	local p=1
@@ -96,7 +96,7 @@ function s.efcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if rp==tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return end
 	local g=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
-	return g and g:IsExists(s.filter,1,nil,tp,e) and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil)	
+	return g and g:IsExists(s.filter,1,nil,tp,e) and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil)	
 end
 function s.eftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -106,7 +106,7 @@ function s.eftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function s.efop(e,tp,eg,ep,ev,re,r,rp,chk)
-	if not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil) then return false end	
+	if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_ONFIELD,0,1,nil) then return false end	
 	local t={}
 	local i=1
 	local p=1

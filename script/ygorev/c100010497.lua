@@ -109,7 +109,7 @@ function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local val=Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsRace,RACE_ROCK),e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)*200
+	local val=Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_ROCK),e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)*200
 	local g=Duel.GetMatchingGroup(s.atkfilter,tp,LOCATION_MZONE,0,nil)
 	for tc in aux.Next(g) do
 		tc:UpdateAttack(val,nil,c)

@@ -25,7 +25,7 @@ end
 
 --Cannot be Normal Summoned, unless you control a Fiend monster (Cannot be Set from your hand)
 function s.sumcon(e)
-	return not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsRace,RACE_FIEND),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+	return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsRace,RACE_FIEND),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 
 --During the Standby Phase: All other Fiend monsters you control gain 100 ATK/DEF

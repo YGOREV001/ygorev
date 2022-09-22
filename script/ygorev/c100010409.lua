@@ -26,7 +26,7 @@ end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)~=0 then
-		if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_SOGEN),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+		if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_SOGEN),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 			or Duel.IsEnvironment(YGOREV_CARD_SOGEN)) 
 			and Duel.IsPlayerCanDraw(tp,1) and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then	
 			Duel.Draw(tp,1,REASON_EFFECT)

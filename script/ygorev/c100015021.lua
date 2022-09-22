@@ -26,7 +26,7 @@ end
 
 --While there is no "Ancient Lamp" in your Graveyard, this card loses 600 ATK
 function s.atkcon(e)
-	return not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_ANCIENTLAMP),e:GetHandlerPlayer(),LOCATION_GRAVE,0,1,nil)
+	return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_ANCIENTLAMP),e:GetHandlerPlayer(),LOCATION_GRAVE,0,1,nil)
 end
 --You can target 1 "Ancient Lamp" in your Graveyard; Shuffle that target and this card into the Deck, and if you do, draw 1 card
 function s.filter(c)

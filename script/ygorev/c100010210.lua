@@ -20,7 +20,7 @@ end
 
 --Gains 300 ATK for each other Fiend monster you control 
 function s.val(e,c)
-	return Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsRace,RACE_FIEND),c:GetControler(),LOCATION_MZONE,0,e:GetHandler())*300
+	return Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_FIEND),c:GetControler(),LOCATION_MZONE,0,e:GetHandler())*300
 end
 
 --Negate the effects of monsters destroyed by battle with Fiend monsters you control 

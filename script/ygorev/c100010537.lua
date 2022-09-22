@@ -72,7 +72,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if #g>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)		
 		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-		local og=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsAttribute,ATTRIBUTE_DARK),tp,0,LOCATION_MZONE,0,nil)
+		local og=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsAttribute,ATTRIBUTE_DARK),tp,0,LOCATION_MZONE,0,nil)
 		if ft==0 or #og==0 then return end		
 		local sg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_GRAVE,0,nil,e,tp)
 		--Special Summon 1 LIGHT monster from your Graveyard

@@ -30,7 +30,7 @@ function s.initial_effect(c)
 end
 --While "Yami" is on the field, you can Tribute Summon/Set Fiend monsters with 1 less Tribute
 function s.trcon(e,c)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_YAMI),e:GetHandlerPlayer(),LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_YAMI),e:GetHandlerPlayer(),LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 		or Duel.IsEnvironment(YGOREV_CARD_YAMI)
 end
 
@@ -42,7 +42,7 @@ function s.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	local ct=Duel.GetMatchingGroupCount(s.filter,tp,LOCATION_ONFIELD,0,nil)
 	
-	local g=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsRace,RACE_FIEND),e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)
+	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsRace,RACE_FIEND),e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)
 	local ct=g:GetClassCount(Card.GetAttribute)	
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(ct)

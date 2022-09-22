@@ -58,7 +58,7 @@ function s.drcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	e:SetLabel(0)
 	--Field validation
-	if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+	if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 		or Duel.IsEnvironment(YGOREV_CARD_UMI)) then e:SetLabel(1) end
 	--At the end of the Battle Phase, if this card battled
 	return e:GetHandler():GetBattledGroupCount()>0
@@ -69,7 +69,7 @@ function s.drop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.IsPlayerCanDraw(tp,1) then
 		Duel.Draw(tp,1,REASON_EFFECT)
 		--if "Umi" is on the field, your opponent discards 1 random card from their hand
-		if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+		if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 		or Duel.IsEnvironment(YGOREV_CARD_UMI) and e:GetLabel()==1) then
 			Duel.SetOperationInfo(0,CATEGORY_HANDES,nil,0,1-tp,1)
 			local g=Duel.GetFieldGroup(1-tp,LOCATION_HAND,0)

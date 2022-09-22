@@ -24,7 +24,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsRelateToEffect(e) then 
 		--Draw 2 cards if "Umi" is on the field, or else just 1 card		
 		if Duel.IsPlayerCanDraw(tp,2) then
-			if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+			if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 			or Duel.IsEnvironment(YGOREV_CARD_UMI)) then
 				Duel.BreakEffect()
 				Duel.Draw(tp,2,REASON_EFFECT)

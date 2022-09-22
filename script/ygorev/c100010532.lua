@@ -58,11 +58,11 @@ function s.drcon1(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.drop1(e,tp,eg,ep,ev,re,r,rp)
 	local ctd=0
-	local g1=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsType,TYPE_MONSTER),tp,0,LOCATION_ONFIELD,nil)
+	local g1=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType,TYPE_MONSTER),tp,0,LOCATION_ONFIELD,nil)
 	if #g1>0 then ctd=ctd+1 end
-	local g2=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsType,TYPE_SPELL),tp,0,LOCATION_ONFIELD,nil)
+	local g2=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType,TYPE_SPELL),tp,0,LOCATION_ONFIELD,nil)
 	if #g2>0 then ctd=ctd+1 end
-	local g3=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsType,TYPE_TRAP),tp,0,LOCATION_ONFIELD,nil)
+	local g3=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType,TYPE_TRAP),tp,0,LOCATION_ONFIELD,nil)
 	if #g3>0 then ctd=ctd+1 end	
 	if ctd>0 then
 		Duel.Draw(tp,ctd,REASON_EFFECT)

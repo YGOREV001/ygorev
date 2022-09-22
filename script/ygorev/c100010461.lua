@@ -102,7 +102,7 @@ end
 
 --While another LIGHT monster is on the field, Negate the effects of all face-up monsters while they are face-up on the field, except for DARK and LIGHT monsters
 function s.discon(e)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsAttribute,ATTRIBUTE_LIGHT),0,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler())
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsAttribute,ATTRIBUTE_LIGHT),0,LOCATION_MZONE,LOCATION_MZONE,1,e:GetHandler())
 end
 function s.distg(e,c)
 	return not (c:IsAttribute(ATTRIBUTE_DARK+ATTRIBUTE_LIGHT))

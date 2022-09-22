@@ -102,7 +102,7 @@ end
 function s.hdop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(ep,LOCATION_HAND,0)
 	--If "Umi" is on the field, you can make your opponent discards 2 random cards instead
-	if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_UMI))
+	if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_UMI),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_UMI))
 		and Duel.GetFieldGroupCount(1-tp,LOCATION_HAND,0)>2 and Duel.SelectYesNo(tp,aux.Stringid(id,2)) then	
 		local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
 		local g=Duel.GetFieldGroup(p,0,LOCATION_HAND)

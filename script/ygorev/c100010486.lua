@@ -127,7 +127,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --Machine monsters on the field gain 300 ATK for each WATER monster on the field
 function s.atkval(e,c)
-	return Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsAttribute,ATTRIBUTE_WATER),e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,nil)*300
+	return Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsAttribute,ATTRIBUTE_WATER),e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,nil)*300
 end
 
 --Card Effects--END

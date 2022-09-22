@@ -27,7 +27,7 @@ function s.hdop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(ep,0,LOCATION_HAND)	
 	if #g>0 then	
 		--If "Mountain" is on the field, you can look at your opponent's hand and discard 1 card from their hand instead
-		if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_MOUNTAIN),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_MOUNTAIN))
+		if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_MOUNTAIN),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) or Duel.IsEnvironment(YGOREV_CARD_MOUNTAIN))
 			and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then	
 				local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
 				local g=Duel.GetFieldGroup(p,0,LOCATION_HAND)

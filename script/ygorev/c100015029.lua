@@ -35,7 +35,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	if #g>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		--If "Forest" is on the field, you can Special Summon it.
-		if (Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_FOREST),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+		if (Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_FOREST),tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 			or Duel.IsEnvironment(YGOREV_CARD_FOREST)) and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then	
 			Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 		else

@@ -1,7 +1,7 @@
 --Meteor Dragon
 local s,id=GetID()
 function s.initial_effect(c)
-	--f a Dragon monster you control is destroyed by a card effect 
+	--If a Dragon monster you control is destroyed by battle or by a card effect 
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -18,7 +18,7 @@ end
 
 function s.cfilter(c,tp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousControler(tp)
-		and c:IsReason(REASON_EFFECT) and c:IsRace(RACE_DRAGON)
+		and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsRace(RACE_DRAGON)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)

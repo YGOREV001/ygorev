@@ -28,7 +28,7 @@ function s.initial_effect(c)
 end
 --Beast-Warrior and Warrior monsters you control gain 200 ATK/DEF for each Equip Spell in your Graveyard
 function s.atkval(e,c)
-	return Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsType,TYPE_EQUIP),e:GetHandlerPlayer(),LOCATION_GRAVE,0,nil)*200
+	return Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsType,TYPE_EQUIP),e:GetHandlerPlayer(),LOCATION_GRAVE,0,nil)*200
 end
 --Shuffle 3 Equip Spells from your Graveyard into the Deck
 function s.cfilter(c)

@@ -24,7 +24,7 @@ function s.initial_effect(c)
 end
 --Loses 500 ATK while you control no Normal Monsters
 function s.atkcon(e)
-	return not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsType,TYPE_NORMAL),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+	return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType,TYPE_NORMAL),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 --If this card is destroyed by battle and sent to the Graveyard
 function s.condition(e,tp,eg,ep,ev,re,r,rp)

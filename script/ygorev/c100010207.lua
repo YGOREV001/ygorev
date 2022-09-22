@@ -17,5 +17,5 @@ end
 
 --Non-DARK monsters on the field lose 200 ATK/DEF for each Fiend monster you control
 function s.atkval(e,c)
-	return Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsRace,RACE_FIEND),e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)*-200
+	return Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsRace,RACE_FIEND),e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)*-200
 end

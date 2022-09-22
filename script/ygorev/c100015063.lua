@@ -61,7 +61,7 @@ function s.ntop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 --If you control "Gate Guardian": You can send this face-up card to the Graveyard; draw 1 card
 function s.drcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_GATEGUARDIAN),tp,LOCATION_ONFIELD,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_GATEGUARDIAN),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end

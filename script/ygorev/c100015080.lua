@@ -14,7 +14,7 @@ function s.initial_effect(c)
 end
 --If you control an Spellcaster monster
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsRace,RACE_SPELLCASTER),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.filter(c,ft)
 	if ft==0 then return c:GetSequence()<5 else return true end

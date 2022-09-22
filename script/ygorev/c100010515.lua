@@ -132,7 +132,7 @@ end
 
 --While "Sogen" or "Umi" is on the field, all Warrior and WATER monsters you control gain 400 ATK/DEF
 function s.atkdefcond(e)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,YGOREV_CARD_SOGEN,YGOREV_CARD_UMI),e:GetHandlerPlayer(),LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,YGOREV_CARD_SOGEN,YGOREV_CARD_UMI),e:GetHandlerPlayer(),LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 		or Duel.IsEnvironment(YGOREV_CARD_SOGEN,YGOREV_CARD_UMI)
 end
 
